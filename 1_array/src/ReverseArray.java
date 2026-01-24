@@ -14,6 +14,13 @@ public class ReverseArray {
         *       time - O(logn) and space - O(1)
         * */
 
+        /*
+        *   Edge cases
+        *   empty array - loop won't run
+        *   all same value - loop will still run
+        *   all negative value - still works
+        * */
+
         int[] arr={1,3,4,5,12,51,55};
 
         method1(arr);
