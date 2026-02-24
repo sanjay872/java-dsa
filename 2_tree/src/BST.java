@@ -71,6 +71,9 @@ public class BST {
         return root;
     }
 
+    // balance tree
+
+
     boolean isBalanced(){
         return isBalanced(root);
     }
