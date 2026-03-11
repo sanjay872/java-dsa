@@ -7,6 +7,7 @@ public class BST {
 
         Node(int val){
             this.val=val;
+            this.height=1;
         }
 
         int getVal(){
@@ -68,11 +69,66 @@ public class BST {
 
         root.height=Math.max(getHeight(root.right),getHeight(root.left))+1;
 
-        return root;
+        return rotate(root);
     }
 
     // balance tree
 
+
+    private Node rotate(Node root){
+
+        // left heavy
+        if(getHeight(root.left)-getHeight(root.right)>1){
+            // left-left case
+            if(getHeight(root.left.left)-getHeight(root.left.right)>0){
+                return rightRotate(root);
+            }
+            else{ // left right case
+                root.left=leftRotate(root.left);
+                return rightRotate(root);
+            }
+        }
+
+        // right heavy
+        if(getHeight(root.right)-getHeight(root.left)>1){
+            // right-right case
+            if(getHeight(root.right.right)-getHeight(root.right.left)>0){
+                return leftRotate(root);
+            }
+            else{ // right-left case
+                root.right=rightRotate(root.right);
+                return leftRotate(root);
+            }
+        }
+
+        return root;
+    }
+
+    private Node leftRotate(Node p){
+        Node c=p.right;
+        Node t=c.left;
+
+        c.left=p;
+        p.right=t;
+
+        p.height=Math.max(getHeight(p.left),getHeight(p.right))+1;
+        c.height=Math.max(getHeight(c.left),getHeight(c.right))+1;
+
+        return c;
+    }
+
+    private Node rightRotate(Node c){
+        Node p = c.left;
+        Node t = p.right;
+
+        p.right = c;
+        c.left = t;
+
+        c.height = Math.max(getHeight(c.left), getHeight(c.right)) + 1;
+        p.height = Math.max(getHeight(p.left), getHeight(p.right)) + 1;
+
+        return p;
+    }
 
     boolean isBalanced(){
         return isBalanced(root);
@@ -141,8 +197,8 @@ public class BST {
         if(root==null){
             return;
         }
-        inorder_display(root.left);
-        inorder_display(root.right);
+        postorder_display(root.left);
+        postorder_display(root.right);
         System.out.print(root.val + " ");
     }
 }
