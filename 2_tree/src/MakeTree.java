@@ -14,7 +14,13 @@ public class MakeTree {
 //        bst.preorder_display();
 
         int[] nums={1,2,3,4,5,6,7,8,9};
-        bst.populate(nums);
-        bst.display();
+//        bst.populate(nums);
+//        bst.display();
+
+        SegmentTree st=new SegmentTree(nums);
+        st.display();
+        System.out.println("From 1 to 3: "+st.query(1,3));
+        st.update(6,10);
+        st.display();
     }
 }
